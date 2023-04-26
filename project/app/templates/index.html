@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Math Quiz</title>
+</head>
+<body>
+    <p id="title">Math Quiz</p>
+    <div id="box">
+        <br>
+            <button onclick="lvl(1)">Level 1</button>
+            <button onclick="lvl(2)">Level 2</button>
+            <button onclick="lvl(3)">Level 3</button>
+        <br><br><br>
+        <p id="math">Good luck!</p><br>
+        <input type="text" id="inp"/>
+        <button onclick="check()">Eingeben</button><br>
+        <p id="math">NOTE: Division rounded by two decimals</p>
+
+    </div>
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
+            let info = {};
+
+            function lvl(num) {
+                fetch("",{
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest', 
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify({
+                        "lvl": num,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    info = data;
+                    document.getElementById("math").innerHTML = data.string;
+                })
+                
+            }
+
+            function check() {
+                
+                let result = String(info.result);
+                let input = document.getElementById("inp").value;
+                if (result == input) {
+                    window.alert("Richtig");
+                } else {
+                    window.alert("Falsch");
+                }
+            }
+            
+        </script>
+
+    
+</body>
+</html>

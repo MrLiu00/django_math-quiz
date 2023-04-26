@@ -1,0 +1,26 @@
+body {
+    background-color: #0077b6;
+}
+
+#title {
+    margin-top: 5%;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Lucida Sans';
+    font-size: 50px;
+}
+
+#box {
+    padding: 10px;
+    background-color: #90e0ef;
+    border: 5px solid black;
+    width: 650px;
+    height: 300px;
+    text-align: center;
+    margin: auto;
+}
+
+#math {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+}
